@@ -1,0 +1,27 @@
+.productdetail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: white;
+}
+
+.productdetail__wrapper {
+    height: 100%;
+}
+
+.productdetail__image {
+    flex: 2 1 400px;
+}
+
+.productdetail__info {
+    flex: 1 1 300px;
+    padding: 25px;
+}
+
+.productdetail__image > img {
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 15px;
+}

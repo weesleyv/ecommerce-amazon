@@ -1,0 +1,31 @@
+.sidemenu {
+    position: fixed;
+    top: 0;
+    width: 300px;
+    z-index: 1000;
+    background-color: lightgray;
+    height: 100%;
+    transition: all 0.4s;
+    transform: translateX(-300px);
+}
+
+.sidemenu__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidemenu__category {
+    list-style: none;
+    margin-left: -20px;
+}
+
+.sidemenu__category li {
+    padding: 5px;
+    margin: 5px;
+}
+
+.sidemenu.open {
+    transform: translateX(0);
+}
