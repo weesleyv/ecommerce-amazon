@@ -1,14 +1,13 @@
 import React from "react";
 import "./SideMenu.css";
-import { useStateValue } from "../StateProvider";
 import CloseIcon from "@material-ui/icons/Close";
 
 function SideMenu(props) {
-  const [{ menu }, dispatch] = useStateValue();
+  const menu = false;
   const openMenu = () => {
-    dispatch({
-      type: "TOGGLE_MENU",
-    });
+    // dispatch({
+    //   type: "TOGGLE_MENU",
+    // });
   };
 
   return (

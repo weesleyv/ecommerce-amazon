@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { listProducts } from "../redux/actions/productActions";
 import "./Home.css";
 import Product from "./Product";
-import data from "../data";
 
 function Home() {
+  const productList = useSelector(state => state.productList)
+  const {products, loading, error } = productList
+  const dispatch = useDispatch()
+  useEffect(() => {
+    console.log('useEffect')
+    dispatch(listProducts());
+  }, [dispatch]);
   return (
+    loading ? <h1>loading...</h1> :
+    error ? <h1>{error.message}</h1> :
     <div className="home">
       <img
         className="home__image"
@@ -12,15 +22,8 @@ function Home() {
         alt="background"
       />
       <div className="home__row">
-        {data.products.map((product) => (
-          <Product
-            id={product.id}
-            title={product.title}
-            price={product.price}
-            rating={product.rating}
-            image={product.image}
-            key={product.id}
-          />
+        {products.map((product) => (
+          <Product product={product}/>
         ))}
       </div>
     </div>

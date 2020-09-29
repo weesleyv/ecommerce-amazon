@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductAction.css";
+import { addToBasket } from "../redux/actions/basketActions";
+import { useDispatch, useSelector } from "react-redux";
 
-function ProductAction({ price }) {
+function ProductAction({ product }) {
+  const [qty, setQty] = useState(1);
+  const dispatch = useDispatch()
+  const add =  () => dispatch(addToBasket(product, qty))
   return (
     <div className="productaction">
       <p className="product__price">
         Price:
         <small> £</small>
-        <strong>{price}</strong>
+        <strong>{product.price}</strong>
       </p>
       <p>Status:</p>
       <p>
         Qty:{" "}
-        <select>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+        <select value={qty} onChange={(e) => setQty(e.target.value)}>
+          {Array(product.countInStock)
+            .fill()
+            .map((item, i) => (
+              <option key={i} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
         </select>
       </p>
-      <button>Add to Basket</button>
+      <button onClick={add}>Add to Basket</button>
     </div>
   );
 }

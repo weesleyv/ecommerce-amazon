@@ -1,34 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
-import { useStateValue } from "../StateProvider";
+import { addToBasket } from "../redux/actions/basketActions";
+import { useDispatch, useSelector } from "react-redux";
 
-function Product({ id, title, image, rating, price }) {
-  const [, dispatch] = useStateValue();
-
-  const addToBasket = () => {
-    dispatch({
-      type: "ADD_TO_BASKET",
-      item: {
-        id,
-        title,
-        image,
-        rating,
-        price,
-      },
-    });
-  };
+function Product({ product }) {
+  const [qty] = useState(1);
+  const dispatch = useDispatch()
+  const add =  () => dispatch(addToBasket(product, qty))
 
   return (
     <div className="product">
       <div className="product__info">
-        <p>{title}</p>
+        <p>{product.title}</p>
         <p className="product__price">
           <small>£</small>
-          <strong>{price}</strong>
+          <strong>{product.price}</strong>
         </p>
         <div className="product__rating">
-          {Array(rating)
+          {Array(product.rating)
             .fill()
             .map((_, i) => (
               <p key={i}>
@@ -39,10 +29,10 @@ function Product({ id, title, image, rating, price }) {
             ))}
         </div>
       </div>
-      <Link to={`/product/${id}`} className="product__link" >
-        <img src={image} alt="productImg" />
+      <Link to={`/product/${product.id}`} className="product__link" >
+        <img src={product.image} alt="productImg" />
       </Link>
-      <button onClick={addToBasket}>Add to basket</button>
+      <button onClick={add}>Add to basket</button>
     </div>
   );
 }

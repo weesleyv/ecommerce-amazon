@@ -16,7 +16,7 @@ function App() {
       <Header />
       <SideMenu/>
         <Switch>
-          <Route path="/checkout" component={Checkout} />
+          <Route path="/checkout/:id?" component={Checkout} />
   
           <Route path="/login">
             <h1>login</h1>

@@ -1,19 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
-import { useStateValue } from "../StateProvider";
-import { getBasketTotal } from "../reducer";
+import {basketTotal, itemsInBasket} from "../redux/reducers/basketReducers"
 
 function Subtotal() {
-  const [{ basket },] = useStateValue();
+  const  {basketItems}  = useSelector((state) => state.basket);
   return (
     <div className="subtotal">
       <CurrencyFormat
         renderText={(value) => (
           <>
             <p>
-              Subtotal ({basket.length} items):{" "}
-              <strong>{`${value} pound`}</strong>
+              Subtotal ({itemsInBasket(basketItems)} items):{" "}
+              <strong>{`${value} pounds`}</strong>
             </p>
             <small className="subtotal__gift">
               <input type="checkbox" />
@@ -22,7 +22,7 @@ function Subtotal() {
           </>
         )}
         decimalScale={2}
-        value={getBasketTotal(basket)}
+        value={basketTotal(basketItems)}
         displayType="text"
         thousandSeparator={true}
         prefix="£"

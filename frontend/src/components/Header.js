@@ -1,23 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import { Link } from "react-router-dom";
-import { useStateValue } from "../StateProvider";
+import { useSelector } from "react-redux";
+import { itemsInBasket } from "../redux/reducers/basketReducers";
 
 //icons
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 function Header() {
-  const [{ basket }, dispatch] = useStateValue();
-
-  const openMenu = (event) => {
-    dispatch({
-      type: "TOGGLE_MENU"
-    })
-  }
+  const { basketItems } = useSelector((state) => state.basket);
+  const [open, setOpen] = useState(false);
+  const openMenu = () => {
+    setOpen(!open);
+  };
   return (
     <nav className="header">
-      <button className="header__menubutton" onClick={openMenu}>&#9776;</button>
+      <button className="header__menubutton" onClick={openMenu}>
+        &#9776;
+      </button>
       <Link to="/">
         <img
           src="https://completemusicupdate.com/wp-content/uploads/2016/05/amazon1250.jpg"
@@ -55,7 +56,7 @@ function Header() {
           <div className="header__optionBasket">
             <ShoppingBasketIcon />
             <span className="header__optionLineTwo header__basketCount">
-              {basket.length}
+              {itemsInBasket(basketItems)}
             </span>
           </div>
         </Link>

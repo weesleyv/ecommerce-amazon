@@ -1,23 +1,23 @@
 import React from "react";
+import {useDispatch} from 'react-redux';
+import {removeFromBasket} from '../redux/actions/basketActions'
 import "./CheckoutProduct.css";
-import {useStateValue} from '../StateProvider'
 
-function CheckoutProduct({ title, price, rating, image, id }) {
-    const [, dispatch] = useStateValue()
-  const removeFromBasket = () => {
-        dispatch({
-            type: 'REMOVE_FROM_BASKET',
-            id
-        })
-  };
+function CheckoutProduct({ title, price, rating, image, id, qty }) {
+  const dispatch = useDispatch()
+  const remove = () => {
+    dispatch(removeFromBasket(id))
+  }
+  const total = price * qty
   return (
     <div className="checkoutProduct">
       <img src={image} alt="productImg" className="checkoutProduct__image" />
       <div className="checkoutProduct__info">
         <p className="checkoutProduct__title">{title}</p>
         <p className="checkoutProduct__price">
-          <small>£</small>
-          <strong>{price}</strong>
+          <strong>£{price}</strong>
+          <small>Qty: {qty}</small>
+          <small>Total: <strong>£{total.toFixed(2)}</strong></small>
         </p>
 
         <div className="checkoutProduct__rating">
@@ -32,7 +32,7 @@ function CheckoutProduct({ title, price, rating, image, id }) {
             ))}
         </div>
 
-        <button onClick={removeFromBasket}>Remove from basket</button>
+        <button onClick={remove}>Remove from basket</button>
       </div>
     </div>
   );

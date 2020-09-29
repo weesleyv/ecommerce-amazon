@@ -30,3 +30,8 @@
 .checkoutProduct__rating {
     display: flex;
 }
+
+.checkoutProduct__price {
+    display: flex;
+    justify-content: space-between;
+}

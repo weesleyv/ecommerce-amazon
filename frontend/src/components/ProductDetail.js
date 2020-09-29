@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProductDetail.css";
-import data from "../data";
-import NotFound from "./NotFound";
+import { detailsProduct } from "../redux/actions/productActions";
+import { useDispatch, useSelector } from "react-redux";
 import ProductAction from "./ProductAction";
 
 function ProductDetail({ match }) {
-  const id = Number(match.params.id);
-  const product = data.products.find((product) => product.id === id);
+  const productDetails = useSelector((state) => state.productDetails);
+  const { product, loading, error } = productDetails;
+  const dispatch = useDispatch();
+  const productId = match.params.id
 
-  return (
+
+  useEffect(() => {
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId]);
+
+  return loading ? (
+    <div>Loading...</div>
+  ) : error ? (
+    <div>{error}</div>
+  ) : (
     <div className="productdetail__wrapper">
-      {product ? (
         <div className="productdetail">
           <div className="productdetail__image">
             <img src={product.image} alt="productImg" />
@@ -27,11 +37,8 @@ function ProductDetail({ match }) {
               <p>{product.description}</p>
             </div>
           </div>
-          <ProductAction price={product.price}/>
+          <ProductAction product={product} />
         </div>
-      ) : (
-        <NotFound />
-      )}
     </div>
   );
 }
