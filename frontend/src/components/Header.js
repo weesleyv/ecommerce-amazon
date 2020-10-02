@@ -9,6 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 
 function Header() {
+  const { userInfo } = useSelector((state) => state.userSignin);
   const { basketItems } = useSelector((state) => state.basket);
   const [open, setOpen] = useState(false);
   const openMenu = () => {
@@ -33,9 +34,9 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link className="header__link" to="/login">
+        <Link className="header__link" to="/signin">
           <div className="header__option">
-            <span className="header__optionLineOne">Hello Vitalij</span>
+            <span className="header__optionLineOne">Hello {userInfo ? userInfo.name : ""}</span>
             <span className="header__optionLineTwo">Sign In</span>
           </div>
         </Link>

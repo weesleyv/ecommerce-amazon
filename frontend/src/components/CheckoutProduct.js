@@ -1,14 +1,14 @@
 import React from "react";
-import {useDispatch} from 'react-redux';
-import {removeFromBasket} from '../redux/actions/basketActions'
+import { useDispatch } from "react-redux";
+import { removeFromBasket } from "../redux/actions/basketActions";
 import "./CheckoutProduct.css";
 
 function CheckoutProduct({ title, price, rating, image, id, qty }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const remove = () => {
-    dispatch(removeFromBasket(id))
-  }
-  const total = price * qty
+    dispatch(removeFromBasket(id));
+  };
+  const total = price * qty;
   return (
     <div className="checkoutProduct">
       <img src={image} alt="productImg" className="checkoutProduct__image" />
@@ -17,7 +17,9 @@ function CheckoutProduct({ title, price, rating, image, id, qty }) {
         <p className="checkoutProduct__price">
           <strong>£{price}</strong>
           <small>Qty: {qty}</small>
-          <small>Total: <strong>£{total.toFixed(2)}</strong></small>
+          <small>
+            Total: <strong>£{total.toFixed(2)}</strong>
+          </small>
         </p>
 
         <div className="checkoutProduct__rating">
