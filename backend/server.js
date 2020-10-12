@@ -4,6 +4,7 @@ import config from "./config";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
+import productRoute from "./routes/productRoute";
 import bodyParser from "body-parser";
 
 dotenv.config();
@@ -22,17 +23,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json())
 app.use("/api/users", userRoute)
-
-app.get("/api/products/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const product = data.products.find((item) => item.id === id);
-  if (product) {
-    res.status(200).send(product);
-  } else {
-    res.status(404).send({ msg: "product not found" });
-  }
-  res.send();
-});
+app.use("/api/products", productRoute)
 
 app.get("/api/products", (req, res) => {
   res.send(data.products);

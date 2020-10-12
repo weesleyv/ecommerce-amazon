@@ -1,0 +1,61 @@
+.register {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__logo {
+  width: 100px;
+  object-fit: contain;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.register__container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.register__container > h1 {
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.register__terms, .register__container > p {
+  margin: 5px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.register__container > form > h5 {
+  margin-bottom: 5px;
+}
+
+.register__container > form > input {
+  height: 30px;
+  margin-bottom: 10px;
+  width: 98%;
+}
+
+.register__createButton {
+  background-color: #f0c14b;
+  border: 1px solid;
+  border-color: #a88734 #9c7e31 #846a29;
+  border-radius: 3px;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  color: #111;
+}
+
+.register__border {
+    height: 1px;
+    width: 100%;
+    background: radial-gradient(circle, rgba(211,211,211,1) 36%, rgba(255,255,255,1) 81%);
+}

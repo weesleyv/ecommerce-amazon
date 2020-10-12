@@ -14,9 +14,7 @@ function Login(props) {
         if (userInfo) {
             props.history.push("/")
         }
-        return () => {
-        }
-    }, [userInfo])
+    }, [userInfo, props.history])
 
     const submitHandler = (event) => {
         event.preventDefault()

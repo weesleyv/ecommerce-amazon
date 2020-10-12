@@ -9,7 +9,6 @@ function Home() {
   const {products, loading, error } = productList
   const dispatch = useDispatch()
   useEffect(() => {
-    console.log('useEffect')
     dispatch(listProducts());
   }, [dispatch]);
   return (

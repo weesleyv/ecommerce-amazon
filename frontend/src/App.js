@@ -10,16 +10,22 @@ import Checkout from "./components/Checkout";
 import ProductDetail from "./components/ProductDetail";
 import SideMenu from "./components/SideMenu";
 import Login from "./components/Login";
-import { useSelector } from "react-redux";
+import Register from "./components/Register";
+import CreateProduct from "./components/CreateProduct";
 
 function App({ location }) {
-  const { userInfo } = useSelector((state) => state.userSignin);
+  const path =
+    location.pathname !== "/signin" &&
+    location.pathname !== "/register" &&
+    location.pathname !== "/newproduct";
   return (
     <div className="app">
-      {location.pathname !== "/signin" && <Header />}
+      {path && <Header />}
       <SideMenu />
       <Switch>
         <Route path="/signin" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/newproduct" component={CreateProduct} />
         <Route path="/checkout/:id?" component={Checkout} />
 
         <Route path="/product/:id" component={ProductDetail} />
