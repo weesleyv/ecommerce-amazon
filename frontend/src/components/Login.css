@@ -67,3 +67,8 @@
   font-size: 12px;
   line-height: 28px;
 }
+
+#paymentMethod {
+  height: 12px;
+  width: 10%;
+}

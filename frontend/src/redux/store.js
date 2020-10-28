@@ -2,17 +2,33 @@ import { createStore, compose, combineReducers, applyMiddleware } from "redux";
 import {
   productListReducer,
   productDetailsReducer,
-  productSaveReducer, productDeleteReducer
+  productSaveReducer,
+  productDeleteReducer,
 } from "./reducers/productReducers";
 import { basketReducer } from "./reducers/basketReducers";
-import { userRegisterReducer, userSigninReducer } from "./reducers/userReducers";
+import {
+  userRegisterReducer,
+  userSigninReducer,
+  userUpdateReducer,
+} from "./reducers/userReducers";
+import {
+  orderCreateReducer,
+  orderDetailsRuducer,
+  orderPayReducer,
+} from "./reducers/orderReducers";
 import thunk from "redux-thunk";
 import Cookie from "js-cookie";
 
 const basketItems = Cookie.getJSON("basketItems") || [];
-const userInfo = Cookie.getJSON("userInfo") || null
+const userInfo = Cookie.getJSON("userInfo") || null;
 
-const initialState = {basket: {basketItems}, userSignin: {userInfo} };
+const initialState = {
+  basket: { basketItems, shipping: {}, payment: {} },
+  userSignin: { userInfo },
+  orderCreate: {
+    order: { data: { shipping: {}, payment: {}, orderItems: [] } },
+  },
+};
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -20,8 +36,12 @@ const reducer = combineReducers({
   basket: basketReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
+  userUpdate: userUpdateReducer,
   productSave: productSaveReducer,
-  productDelete: productDeleteReducer
+  productDelete: productDeleteReducer,
+  orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsRuducer,
+  orderPay: orderPayReducer,
 });
 
 const composeEnhancer =

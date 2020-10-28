@@ -1,10 +1,10 @@
 import * as basketActions from "../actionTypes/basketConsts";
 
-const basketReducer = (state = { basketItems: [] }, action) => {
+const basketReducer = (state = { basketItems: [], shipping: {}, payment: {} }, action) => {
   switch (action.type) {
     case basketActions.ADD_TO_BASKET:
       const alreadyInBasket = state.basketItems.find(
-        (item) => item.id === action.payload.id
+        (item) => item.product === action.payload.product
       );
       if (alreadyInBasket) {
         alreadyInBasket.qty = Number(alreadyInBasket.qty) + Number(action.payload.qty);
@@ -20,7 +20,13 @@ const basketReducer = (state = { basketItems: [] }, action) => {
       );
       state.basketItems.splice(index, 1);
       const newBasket = state.basketItems;
-      return { basketItems: [...newBasket] };
+      return { ...state, basketItems: [...newBasket] };
+
+    case basketActions.SAVE_SHIPPING:
+      return {...state, shipping: action.payload}
+
+    case basketActions.SAVE_PAYMENT:
+      return {...state, payment: action.payload}
 
     default:
       return { ...state };

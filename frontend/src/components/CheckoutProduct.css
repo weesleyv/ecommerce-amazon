@@ -2,6 +2,8 @@
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #c0c0c0;
 }
 
 .checkoutProduct__image {
@@ -12,6 +14,7 @@
 
 .checkoutProduct__info {
     padding-left: 20px;
+    flex: 1;
 }
 
 .checkoutProduct__info > button {

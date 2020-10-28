@@ -1,6 +1,6 @@
 import express from "express";
 import User from "../models/User";
-import { getToken } from "../utils";
+import { getToken, isAuth } from "../utils";
 
 const router = express.Router();
 
@@ -43,6 +43,10 @@ router.post("/register", async (req, res) => {
       res.status(401).send({message: "invalid user data"})
   }
 });
+
+router.put("/:id", isAuth, (req,res) => {
+  //
+})
 
 router.get("/createadmin", async (req, res) => {
   try {

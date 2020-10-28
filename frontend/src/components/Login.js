@@ -9,10 +9,11 @@ function Login(props) {
     const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
 
     useEffect(() => {
         if (userInfo) {
-            props.history.push("/")
+            props.history.push(redirect)
         }
     }, [userInfo, props.history])
 
@@ -54,7 +55,7 @@ function Login(props) {
           By continuing, you agree to Amazon's Conditions of Use and Privacy
           Notice.
         </p>
-        <Link to="/register" className="login__registerButton">
+        <Link to={redirect === "/" ? "register" : "register?redirect=" + redirect} className="login__registerButton">
           Create your Amazon Account
         </Link>
       </div>

@@ -4,8 +4,9 @@ import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import {basketTotal, itemsInBasket} from "../redux/reducers/basketReducers"
 
-function Subtotal() {
+function Subtotal({checkout}) {
   const  {basketItems}  = useSelector((state) => state.basket);
+ 
   return (
     <div className="subtotal">
       <CurrencyFormat
@@ -27,7 +28,7 @@ function Subtotal() {
         thousandSeparator={true}
         prefix="£"
       />
-      <button>Proceed to checkout</button>
+      <button onClick={checkout}>Proceed to checkout</button>
     </div>
   );
 }

@@ -46,7 +46,6 @@ const saveProduct = (product) => (dispatch, getState) => {
     payload: product 
   });
   const { userSignin: { userInfo } } = getState();
-
   if (!product._id) {
     fetch("/api/products", {
       method: "POST",
@@ -77,7 +76,7 @@ const saveProduct = (product) => (dispatch, getState) => {
       body: JSON.stringify(product)
     })
       .then((response) => response.json())
-      .then((data) =>
+      .then((data) => 
         dispatch({
           type: productActions.PRODUCT_SAVE_SUCCESS,
           payload: data,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ProductAction.css";
 import { addToBasket } from "../redux/actions/basketActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function ProductAction({ product }) {
   const [qty, setQty] = useState(1);
@@ -12,7 +12,7 @@ function ProductAction({ product }) {
       <p className="product__price">
         Price:
         <small> £</small>
-        <strong>{product.price}</strong>
+        <strong>{product.price * qty}</strong>
       </p>
       <p>Status:</p>
       <p>

@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { register } from "../redux/actions/userActions";
 import "./Register.css";
 
-function Register() {
+function Register(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const {loading, userInfo, error} = useSelector(state => state.userSignin)
   const dispatch = useDispatch();
+
+  const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      props.history.push(redirect)
+    }
+  }, [userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -25,8 +34,8 @@ function Register() {
         />
       </Link>
       <div className="register__container">
-        {/* {loading && <div>Loading...</div>}
-        {error && <div style={{ color: "red" }}>{error.message}</div>} */}
+        {loading && <div>Loading...</div>}
+        {error && <div style={{ color: "red" }}>{error.message}</div>}
         <h1>Register</h1>
         <form onSubmit={submitHandler}>
           <h5>Your Name</h5>
@@ -65,7 +74,7 @@ function Register() {
         </div>
         <div className="register__border"></div>
         <p>
-          Already have an account? <Link to="/signin">Sign In</Link>
+          Already have an account? <Link to={redirect === "/" ? "signin" : "signin?redirect=" + redirect}>Sign In</Link>
         </p>
       </div>
     </div>

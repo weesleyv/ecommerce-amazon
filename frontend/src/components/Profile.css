@@ -1,0 +1,12 @@
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile__info {
+    flex: 1 1 30rem;
+}
+
+.profile__orders {
+    flex: 3 1 60rem;
+}

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
 import { addToBasket } from "../redux/actions/basketActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Product({ product }) {
   const [qty] = useState(1);
@@ -29,7 +29,7 @@ function Product({ product }) {
             ))}
         </div>
       </div>
-      <Link to={`/product/${product.id}`} className="product__link" >
+      <Link to={`/product/${product._id}`} className="product__link" >
         <img src={product.image} alt="productImg" />
       </Link>
       <button onClick={add}>Add to basket</button>

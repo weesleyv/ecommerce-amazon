@@ -20,7 +20,7 @@ const signin = (email, password) => (dispatch) => {
         payload: data,
       })
     )
-    .then((data) => Cookie.set("userInfo", JSON.stringify(data)))
+    .then((data) => Cookie.set("userInfo", JSON.stringify(data.payload)))
     .catch((error) =>
       dispatch({
         type: userActions.USER_SIGNIN_FAIL,
@@ -51,9 +51,65 @@ const register = (name, email, password) => (dispatch) => {
     .catch((error) =>
       dispatch({
         type: userActions.USER_REGISTER_FAIL,
-        payload: error.message
+        payload: error.message,
       })
     );
 };
 
-export { signin, register };
+const logout = () => (dispatch) => {
+  Cookie.remove("userInfo");
+  dispatch({
+    type: userActions.USER_LOGOUT,
+  });
+};
+
+const update = (userId, name, email, password) => (dispatch) => {
+  dispatch({
+    type: userActions.USER_UPDATE_REQUEST,
+    payload: userId,
+    name,
+    email,
+    password,
+  });
+  fetch(`/api/user/${userId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, email, password }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch({
+        type: userActions.USER_UPDATE_SUCCESS,
+        payload: data,
+      });
+    })
+    .then((data) => Cookie.set("userInfo", JSON.stringify(data.payload)))
+    .catch((error) =>
+      dispatch({
+        type: userActions.USER_UPDATE_FAIL,
+        payload: error,
+      })
+    );
+};
+
+const fetchData = (url, body, userActionSuccess, userActionFail, cookie, dispatch) => {
+  fetch(url, body)
+    .then(response => response.json())
+    .then(data => dispatch({
+      type: userActionSuccess,
+      payload: data
+    }))
+    .then(data => {
+      if (cookie) {
+        Cookie.set(cookie, JSON.stringify(data.payload))
+      }
+    })
+    .catch(error => dispatch({
+      type: userActionFail,
+      payload: error
+    }))
+}
+
+export { signin, register, logout, update };

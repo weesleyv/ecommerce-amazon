@@ -12,19 +12,31 @@ import SideMenu from "./components/SideMenu";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import CreateProduct from "./components/CreateProduct";
+import Shipping from "./components/Shipping";
+import Payment from "./components/Payment";
+import PlaceOrder from "./components/PlaceOrder";
+import Order from "./components/Order";
+import Profile from "./components/Profile";
 
 function App({ location }) {
   const path =
     location.pathname !== "/signin" &&
     location.pathname !== "/register" &&
-    location.pathname !== "/newproduct";
+    location.pathname !== "/newproduct" &&
+    location.pathname !== "/shipping" &&
+    location.pathname !== "/payment"
   return (
     <div className="app">
       {path && <Header />}
       <SideMenu />
       <Switch>
+        <Route path="/profile" component={Profile} />
         <Route path="/signin" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/shipping" component={Shipping} />
+        <Route path="/payment" component={Payment} />
+        <Route path="/placeorder" component={PlaceOrder} />
+        <Route path="/orders/:id" component={Order} />
         <Route path="/newproduct" component={CreateProduct} />
         <Route path="/checkout/:id?" component={Checkout} />
 

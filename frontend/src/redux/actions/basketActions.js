@@ -5,8 +5,8 @@ const addToBasket = (item, qty) => (dispatch, getState) => {
   dispatch({
     type: basketActions.ADD_TO_BASKET,
     payload: {
-      id: item.id,
-      title: item.title,
+      product: item._id,
+      name: item.name,
       price: item.price,
       rating: item.rating,
       qty,
@@ -27,4 +27,18 @@ const removeFromBasket = (itemId) => (dispatch, getState) => {
   Cookie.set("basketItems", JSON.stringify(basketItems))
 };
 
-export { addToBasket, removeFromBasket };
+const saveShipping = (data) => (dispatch) => {
+  dispatch({
+    type: basketActions.SAVE_SHIPPING,
+    payload: data
+  })
+}
+
+const savePayment = (data) => (dispatch) => {
+  dispatch({
+    type: basketActions.SAVE_PAYMENT,
+    payload: data
+  })
+}
+
+export { addToBasket, removeFromBasket, saveShipping, savePayment };

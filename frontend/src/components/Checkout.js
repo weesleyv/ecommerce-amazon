@@ -4,8 +4,13 @@ import "./Checkout.css";
 import CheckoutProduct from "./CheckoutProduct";
 import Subtotal from "./Subtotal";
 
-function Checkout() {
+function Checkout(props) {
   const  {basketItems}  = useSelector((state) => state.basket);
+  console.log(basketItems)
+
+  const checkoutHandler = () => {
+    props.history.push("signin?redirect=shipping")
+  }
  
   return (
     <div className="checkout">
@@ -26,7 +31,8 @@ function Checkout() {
             <h1 className="checkout__title">Yor Shopping basket</h1>
             {basketItems.map((item) => (
               <CheckoutProduct
-                id={item.id}
+                key={item.product}
+                id={item.product}
                 title={item.title}
                 image={item.image}
                 price={item.price}
@@ -39,7 +45,7 @@ function Checkout() {
       </div>
       {basketItems.length > 0 && (
         <div className="checkout__right">
-          <Subtotal />
+          <Subtotal checkout={checkoutHandler}/>
         </div>
       )}
     </div>

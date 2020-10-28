@@ -22,7 +22,7 @@ function Home() {
       />
       <div className="home__row">
         {products.map((product) => (
-          <Product product={product}/>
+          <Product product={product} key={product._id}/>
         ))}
       </div>
     </div>

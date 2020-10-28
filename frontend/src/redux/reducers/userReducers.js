@@ -8,6 +8,8 @@ function userSigninReducer(state={}, action) {
             return {loading: false, userInfo: action.payload}
         case userActions.USER_SIGNIN_FAIL:
             return {loading: false, error: action.payload}
+        case userActions.USER_LOGOUT:
+            return {}
         default:
             return state
     }
@@ -26,4 +28,16 @@ function userRegisterReducer(state={}, action) {
     }
 }
 
-export {userSigninReducer, userRegisterReducer}
+function userUpdateReducer(state = {}, action) {
+    switch (action.type) {
+      case userActions.USER_UPDATE_REQUEST:
+        return { loading: true };
+      case userActions.USER_UPDATE_SUCCESS:
+        return { loading: false, userInfo: action.payload };
+      case userActions.USER_UPDATE_FAIL:
+        return { loading: false, error: action.payload };
+      default: return state;
+    }
+}
+
+export {userSigninReducer, userRegisterReducer, userUpdateReducer}
