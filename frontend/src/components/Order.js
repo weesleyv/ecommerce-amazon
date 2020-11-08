@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { orderDetails, payOrder } from "../redux/actions/orderActions";
+import { orderDetailsAction, payOrder } from "../redux/actions/orderActions";
 import CheckoutProduct from "./CheckoutProduct";
 import CheckoutSteps from "./CheckoutSteps";
 import PaypalButton from "./PaypalButton";
+import * as orderActions from "../redux/actionTypes/orderConsts";
 
 function Order(props) {
-  const { loading, success, error, order } = useSelector(
-    (state) => state.orderCreate
+  const orderDetails = useSelector(
+    (state) => state.orderDetails
   );
+  const {loading, error, order} = orderDetails
   const orderPay = useSelector(state => state.orderPay)
   const {loading: loadingPay, success: successPay, error: errorPay} = orderPay
+  
   const dispatch = useDispatch();
 
   const handleSuccessPayment = (paymentResult) => {
@@ -20,9 +23,14 @@ function Order(props) {
   useEffect(() => {
       if (successPay) {
           props.history.push("/profile")
+          dispatch({type: orderActions.ORDER_PAY_RESET})
+      } else {
+        dispatch(orderDetailsAction(props.match.params.id));
       }
-    dispatch(orderDetails(props.match.params.id));
-  }, [successPay]);
+      return () => {
+          //
+      };
+  }, [successPay, props, dispatch]);
 
   return loading ? (
     <div>Loading...</div>
@@ -36,8 +44,8 @@ function Order(props) {
           <div className="placeorder__shipping">
             <h3>Shipping</h3>
             <div>
-              {order.data.shipping.address}, {order.data.shipping.city},
-              {order.data.shipping.postcode}, {order.data.shipping.country}
+              {order.shipping.address}, {order.shipping.city},
+              {order.shipping.postcode}, {order.shipping.country}
             </div>
             <div>
               {order.isDelivered
@@ -47,18 +55,18 @@ function Order(props) {
           </div>
           <div className="placeorder__payment">
             <h3>Payment</h3>
-            <div>Payment method: {order.data.payment.paymentMethod}</div>
+            <div>Payment method: {order.payment.paymentMethod}</div>
             <div>
-              {order.data.isPaid ? `Paid at ${order.data.paidAt}` : `Not Paid`}
+              {order.isPaid ? `Paid at ${order.paidAt}` : `Not Paid`}
             </div>
           </div>
           <div className="placeorder__products">
             <h3>Shopping Basket</h3>
-            {order.data.orderItems.length > 0 ? (
-              order.data.orderItems.map((item) => (
+            {order.orderItems.length > 0 ? (
+              order.orderItems.map((item) => (
                 <CheckoutProduct
-                  key={item.id}
-                  id={item.id}
+                  key={item._id}
+                  id={item._id}
                   title={item.title}
                   image={item.image}
                   price={item.price}
@@ -74,27 +82,29 @@ function Order(props) {
         <div className="placeorder__action">
           <ul>
             <li className="placeorder__paypalBtn">
-              {!order.data.isPaid && (
+              {loadingPay && <div>Processing Payment...</div>}
+              {errorPay && <div>{errorPay}</div>}
+              {!order.isPaid && 
                 <PaypalButton
-                  amount={order.data.totalPrice}
+                  amount={order.totalPrice}
                   onSuccess={handleSuccessPayment}
                 />
-              )}
+              }
             </li>
             <li>
               <h3>Order Summary</h3>
             </li>
             <li>
               <div>Items:</div>
-              <div>£{order.data.itemsPrice}</div>
+              <div>£{order.itemsPrice}</div>
             </li>
             <li>
               <div>Shipping:</div>
-              <div>£{order.data.shippingPrice}</div>
+              <div>£{order.shippingPrice}</div>
             </li>
             <li>
               <div>Total:</div>
-              <div>£{order.data.totalPrice}</div>
+              <div>£{order.totalPrice}</div>
             </li>
           </ul>
         </div>

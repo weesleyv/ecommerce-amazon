@@ -17,6 +17,7 @@ import Payment from "./components/Payment";
 import PlaceOrder from "./components/PlaceOrder";
 import Order from "./components/Order";
 import Profile from "./components/Profile";
+import AdminOrders from "./components/AdminOrders";
 
 function App({ location }) {
   const path =
@@ -30,6 +31,7 @@ function App({ location }) {
       {path && <Header />}
       <SideMenu />
       <Switch>
+        <Route path="/adminorders" component={AdminOrders} />
         <Route path="/profile" component={Profile} />
         <Route path="/signin" component={Login} />
         <Route path="/register" component={Register} />

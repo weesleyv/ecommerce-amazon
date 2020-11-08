@@ -18,7 +18,7 @@ function CreateProduct() {
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
 
-  const { loading, products, error } = useSelector(
+  const { products } = useSelector(
     (state) => state.productList
   );
 
@@ -29,9 +29,7 @@ function CreateProduct() {
   } = useSelector((state) => state.productSave);
 
   const {
-    loading: loadingDelete,
     success: successDelete,
-    error: errorDelete,
   } = useSelector((state) => state.productDelete);
 
   const dispatch = useDispatch();
@@ -41,7 +39,7 @@ function CreateProduct() {
       setModal(false);
     }
     dispatch(listProducts());
-  }, [successSave, successDelete]);
+  }, [successSave, successDelete, dispatch]);
 
   const submitHandler = (e) => {
     e.preventDefault();

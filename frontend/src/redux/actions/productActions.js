@@ -20,11 +20,11 @@ const detailsProduct = (productId) => (dispatch) => {
     );
 };
 
-const listProducts = () => (dispatch) => {
+const listProducts = (searchKeyWords = "") => (dispatch) => {
   dispatch({
     type: productActions.PRODUCT_LIST_REQUEST,
   });
-  fetch("/api/products")
+  fetch(`/api/products?searchKeyWords=${searchKeyWords}`)
     .then((response) => response.json())
     .then((data) =>
       dispatch({

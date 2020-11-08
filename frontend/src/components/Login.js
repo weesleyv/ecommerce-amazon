@@ -15,7 +15,7 @@ function Login(props) {
         if (userInfo) {
             props.history.push(redirect)
         }
-    }, [userInfo, props.history])
+    }, [userInfo, props.history, redirect])
 
     const submitHandler = (event) => {
         event.preventDefault()

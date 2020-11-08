@@ -63,7 +63,7 @@ const logout = () => (dispatch) => {
   });
 };
 
-const update = (userId, name, email, password) => (dispatch) => {
+const update = ({userId, name, email, password}) => (dispatch, getState) => {
   dispatch({
     type: userActions.USER_UPDATE_REQUEST,
     payload: userId,
@@ -71,10 +71,12 @@ const update = (userId, name, email, password) => (dispatch) => {
     email,
     password,
   });
+  const { userSignin: { userInfo } } = getState();
   fetch(`/api/user/${userId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": "Bearer " + userInfo.token
     },
     body: JSON.stringify({ name, email, password }),
   })
@@ -94,22 +96,22 @@ const update = (userId, name, email, password) => (dispatch) => {
     );
 };
 
-const fetchData = (url, body, userActionSuccess, userActionFail, cookie, dispatch) => {
-  fetch(url, body)
-    .then(response => response.json())
-    .then(data => dispatch({
-      type: userActionSuccess,
-      payload: data
-    }))
-    .then(data => {
-      if (cookie) {
-        Cookie.set(cookie, JSON.stringify(data.payload))
-      }
-    })
-    .catch(error => dispatch({
-      type: userActionFail,
-      payload: error
-    }))
-}
+// const fetchData = (url, body, userActionSuccess, userActionFail, cookie, dispatch) => {
+//   fetch(url, body)
+//     .then(response => response.json())
+//     .then(data => dispatch({
+//       type: userActionSuccess,
+//       payload: data
+//     }))
+//     .then(data => {
+//       if (cookie) {
+//         Cookie.set(cookie, JSON.stringify(data.payload))
+//       }
+//     })
+//     .catch(error => dispatch({
+//       type: userActionFail,
+//       payload: error
+//     }))
+// }
 
 export { signin, register, logout, update };

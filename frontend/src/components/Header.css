@@ -14,6 +14,7 @@
 }
 
 .header__menubutton {
+    display: none;
     background: none;
     border: 1px solid gray;
     border-radius: 3px;
@@ -32,6 +33,7 @@
 .header__search {
     display: flex;
     flex: 1;
+    position: relative;
 }
 
 .header__searchInput {
@@ -47,10 +49,30 @@
 }
 
 .header__searchIcon {
+    position: absolute;
+    top: 0;
+    right: 15px;
     background-color: #cd9042;
     padding: 5px;
     margin-left: -34px;
     height: 22px !important;
+}
+
+.header__searchIcon:hover {
+    background-color: #bd863d;
+    cursor: pointer;
+}
+
+.header__searchButton {
+    height: 0;
+    width: 0;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.header__searchButton:focus {
+    outline: none;
+    border: none;
 }
 
 .header__nav {
@@ -87,4 +109,44 @@
 .header__basketCount {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.header__dropdown {
+    position: relative;
+    color: white;
+}
+
+.header__dropdown-content {
+    position: absolute;
+    list-style-type: none;
+    display: none;
+    right: -9px;
+    padding: 10px;
+    margin: 0;
+    z-index: 1;
+    background: #131a22;
+    border-radius: 3px;
+}
+
+.header__dropdown-content li {
+    padding: 5px 0;
+}
+
+.header__dropdown:hover .header__dropdown-content {
+    display: block;
+}
+
+.header__dropdown-link {
+    text-decoration: none;
+    color: white;
+}
+
+@media (max-width: 600px) {
+    .header__logoLink {
+        display: none;
+    }
+
+    .header__menubutton {
+        display: none;
+    }
 }

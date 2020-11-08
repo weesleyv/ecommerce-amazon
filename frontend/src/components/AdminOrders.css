@@ -1,0 +1,56 @@
+.adminorders {
+    margin-top: 20px;
+}
+
+.adminorders__table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.adminorders__table th {
+  background-color: black;
+  color: white;
+  padding: 6px 0;
+}
+
+.adminorders__table > th,
+td {
+  padding: 6px 0;
+  text-align: center;
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: #f0f0f0;
+}
+
+.adminorders__orderButton {
+    margin: 0 5px;
+    padding: 5px 10px;
+  }
+
+@media (max-width: 500px) {
+    .adminorders__table thead {
+      display: none;
+    }
+    .adminorders__table,
+    .adminorders__table tbody,
+    .adminorders__table tr,
+    .adminorders__table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .adminorders__table tr {
+      margin-bottom: 15px;
+    }
+    .adminorders__table td {
+      text-align: right;
+      position: relative;
+    }
+  
+    .adminorders__table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+    }
+  }

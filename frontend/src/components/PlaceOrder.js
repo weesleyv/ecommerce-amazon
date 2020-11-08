@@ -5,7 +5,6 @@ import CheckoutSteps from "./CheckoutSteps";
 import "./PlaceOrder.css";
 import { basketTotal } from "../redux/reducers/basketReducers";
 import {createOrder} from "../redux/actions/orderActions";
-import { orderCreateReducer } from "../redux/reducers/orderReducers";
 
 function PlaceOrder(props) {
   const basket = useSelector((state) => state.basket);
@@ -13,10 +12,10 @@ function PlaceOrder(props) {
   const {loading, success, error, order} = useSelector(state => state.orderCreate)
   const { basketItems, shipping, payment } = basket;
 
-  const itemsPrice = parseFloat(basketTotal(basketItems)).toFixed(2);
+  const itemsPrice = Number(basketTotal(basketItems).toFixed(2));
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
   const totalPrice = itemsPrice + shippingPrice;
-
+ 
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
@@ -38,10 +37,9 @@ function PlaceOrder(props) {
 
   useEffect(() => {
     if (success) {
-      console.log(order)
       props.history.push("/orders/" + order.data._id)
     }
-  }, [success])
+  }, [success, order, props])
 
   return (
     loading ? <div>Loading...</div>
@@ -59,15 +57,15 @@ function PlaceOrder(props) {
           </div>
           <div className="placeorder__payment">
             <h3>Payment</h3>
-            <div>Payment method: {basket.payment}</div>
+            <div>Payment method: {payment.toString()}</div>
           </div>
           <div className="placeorder__products">
             <h3>Shopping Basket</h3>
             {basketItems.length > 0 ? (
               basketItems.map((item) => (
                 <CheckoutProduct
-                  key={item.id}
-                  id={item.id}
+                  key={item.product}
+                  id={item.product}
                   title={item.title}
                   image={item.image}
                   price={item.price}
