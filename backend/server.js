@@ -1,14 +1,12 @@
 import express from "express";
 import data from "./data";
 import config from "./config";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
 import productRoute from "./routes/productRoute";
 import orderRoute from "./routes/orderRoute";
 import bodyParser from "body-parser";
 
-dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose.connect(mongodbUrl, {
