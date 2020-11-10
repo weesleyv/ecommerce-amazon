@@ -5,7 +5,6 @@ import { getToken, isAuth } from "../utils";
 const router = express.Router();
 
 router.post("/signin", async (req, res) => {
-  console.log(req.body);
   const user = await User.findOne({
     email: req.body.email,
     password: req.body.password,
@@ -19,7 +18,7 @@ router.post("/signin", async (req, res) => {
       token: getToken(user),
     });
   } else {
-    res.status(401).send({ message: "Invalid Email or Password" });
+    res.status(401).send({ errorMsg: "Invalid Email or Password" });
   }
 });
 

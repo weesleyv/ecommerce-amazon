@@ -12,7 +12,7 @@ function Login(props) {
     const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
 
     useEffect(() => {
-        if (userInfo) {
+        if (userInfo?._id) {
             props.history.push(redirect)
         }
     }, [userInfo, props.history, redirect])
@@ -32,7 +32,7 @@ function Login(props) {
       </Link>
       <div className="login__container">
       {loading && <div>Loading...</div>}
-      {error && <div style={{color: "red"}}>{error.message}</div>}
+      {userInfo?.errorMsg && <div style={{color: "red"}}>{userInfo.errorMsg}</div>}
         <h1>Sing In</h1>
         <form onSubmit={submitHandler}>
           <h5>Email</h5>
@@ -40,12 +40,14 @@ function Login(props) {
             type="email"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <h5>Password</h5>
           <input
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <button type="submit" className="login__signinButton">
             Sign In

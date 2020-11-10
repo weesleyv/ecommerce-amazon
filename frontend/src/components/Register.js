@@ -9,7 +9,7 @@ function Register(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const {loading, userInfo, error} = useSelector(state => state.userSignin)
+  const {loading, userInfo, error} = useSelector(state => state.userRegister)
   const dispatch = useDispatch();
 
   const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
@@ -18,7 +18,7 @@ function Register(props) {
     if (userInfo) {
       props.history.push(redirect)
     }
-  }, [userInfo, props.history, redirect])
+  }, [userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,18 +43,21 @@ function Register(props) {
             type="text"
             name="name"
             onChange={(e) => setName(e.target.value)}
+            required
           />
           <h5>Email</h5>
           <input
             type="email"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <h5>Password</h5>
           <input
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <h5>Re-enter Password</h5>
           <input

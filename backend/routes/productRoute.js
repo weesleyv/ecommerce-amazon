@@ -5,7 +5,6 @@ import { isAdmin, isAuth } from "../utils";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  console.log(req.query.searchKeyWords, "Query")
   const searchWord = req.query.searchKeyWords ? {
     name: {
       $regex: req.query.searchKeyWords,
@@ -14,7 +13,6 @@ router.get("/", async (req, res) => {
   } : {};
   
   const products = await Product.find({...searchWord});
-  console.log(products, "Products")
   res.send(products);
 });
 

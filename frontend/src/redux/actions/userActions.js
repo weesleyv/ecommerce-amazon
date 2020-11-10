@@ -20,7 +20,7 @@ const signin = (email, password) => (dispatch) => {
         payload: data,
       })
     )
-    .then((data) => Cookie.set("userInfo", JSON.stringify(data.payload)))
+    .then((data) => data.payload._id ? Cookie.set("userInfo", JSON.stringify(data.payload)) : console.log(data))
     .catch((error) =>
       dispatch({
         type: userActions.USER_SIGNIN_FAIL,
