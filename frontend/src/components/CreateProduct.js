@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listProducts,
@@ -18,9 +19,7 @@ function CreateProduct() {
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState("");
 
-  const { products } = useSelector(
-    (state) => state.productList
-  );
+  const { products } = useSelector((state) => state.productList);
 
   const {
     loading: loadingSave,
@@ -28,9 +27,9 @@ function CreateProduct() {
     error: errorSave,
   } = useSelector((state) => state.productSave);
 
-  const {
-    success: successDelete,
-  } = useSelector((state) => state.productDelete);
+  const { success: successDelete } = useSelector(
+    (state) => state.productDelete
+  );
 
   const dispatch = useDispatch();
 
@@ -78,7 +77,10 @@ function CreateProduct() {
       {!modal && (
         <div className="createProduct__header">
           <h2>Products</h2>
-          <button onClick={() => openModal({})}>Create Product</button>
+          <div>
+            <button onClick={() => openModal({})} className="createProduct__productButton">Create Product</button>
+            <Link to="/">Back</Link>
+          </div>
         </div>
       )}
       {modal && (

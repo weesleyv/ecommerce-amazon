@@ -19,6 +19,9 @@
   background-color: #fcfcfc;
   min-width: 300px;
 }
+.placeorder__action {
+  height: 300px;
+}
 
 .placeorder__action ul {
   padding: 0;

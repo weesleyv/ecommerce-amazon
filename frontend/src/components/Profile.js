@@ -23,12 +23,15 @@ function Profile(props) {
 
   const orderList = useSelector((state) => state.orderList);
   const { loading: loadingOrders, orders, error: errorOrders } = orderList;
+  console.log(orders)
 
   useEffect(() => {
     if (userInfo) {
       setEmail(userInfo.email);
       setName(userInfo.name);
       setPassword(userInfo.password);
+    } else {
+      props.history.push("/signin")
     }
     dispatch(listMyOrders())
   }, [userInfo, dispatch]);

@@ -100,7 +100,7 @@ const payOrder = (order, paymentResult) => (dispatch, getState) => {
   fetch(`/api/orders/${order._id}/pay`, {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${userInfo.token}`,
+      Authorization: `Bearer ${userInfo?.token}`,
     },
   })
     .then((response) => response.json())
