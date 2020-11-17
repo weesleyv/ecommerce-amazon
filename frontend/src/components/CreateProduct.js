@@ -95,42 +95,42 @@ function CreateProduct() {
                 type="text"
                 name="name"
                 onChange={(e) => setName(e.target.value)}
-                value={name}
+                // value={name}
               />
               <h5>Product price</h5>
               <input
                 type="text"
                 name="price"
                 onChange={(e) => setPrice(e.target.value)}
-                value={price}
+                // value={price}
               />
               <h5>Image</h5>
               <input
                 type="text"
                 name="image"
                 onChange={(e) => setImage(e.target.value)}
-                value={image}
+                // value={image}
               />
               <h5>Brand</h5>
               <input
                 type="text"
                 name="brand"
                 onChange={(e) => setBrand(e.target.value)}
-                value={brand}
+                // value={brand}
               />
               <h5>Category</h5>
               <input
                 type="text"
                 name="category"
                 onChange={(e) => setCategory(e.target.value)}
-                value={category}
+                // value={category}
               />
               <h5>Count in Stock</h5>
               <input
                 type="text"
                 name="count"
                 onChange={(e) => setCountInStock(e.target.value)}
-                value={countInStock}
+                // value={countInStock}
               />
               <h5>Description</h5>
               <textarea
@@ -138,7 +138,7 @@ function CreateProduct() {
                 name="description"
                 id="description"
                 onChange={(e) => setDescription(e.target.value)}
-                value={description}
+                // value={description}
               ></textarea>
               <button type="submit" className="createProduct__createButton">
                 {id ? "Update" : "Create New Product"}
